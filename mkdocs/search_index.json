@@ -1,0 +1,59 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Android SyncLite\n\n\nAndroid SyncLite \u00e9 uma biblioteca para facilitar a sincroniza\u00e7\u00e3o de dados utilizando um protocolo especificado a seguir para envio e recebimento dos dados.\n\n\nDefinindo entidades\n\n\nPara que uma entidade possa ser sincronizavel se faz necess\u00e1rio que seja criado uma subclasse de BaseModelSync como no exemplo a seguir:\n\n\nimport br.com.roove.synclite.models.BaseModelSync;\nimport br.com.roove.synclite.annotation.SyncLiteField;\n\npublic class Book extends BaseModelSync {\n\n  @SyncLiteField(columnName=\n_id\n)\n  Long id;\n\n  @SyncLiteField(serializerName=\ncreator\n)\n  String author;\n\n  @SyncLiteField()\n  String title;\n\n  @SyncLiteField()\n  String ibsn;\n\n  // getter's e setter's\n\n}\n\n\n\n\nApenas os atributos com a anota\u00e7\u00e3o @SyncLiteField ser\u00e3o consideradas para a sincroniza\u00e7\u00e3o e persist\u00eancia.\n\n\nO Atributo \ncolumnName\n da anota\u00e7\u00e3o deve ser usado para alterar o valor que ser\u00e1 gravado no storage local. Default: Nome do atributo.\n\n\nO Atributo \nserializerName\n da anota\u00e7\u00e3o deve ser usado para alterar o valor que ser\u00e1 considerado nos servi\u00e7os de sincroniza\u00e7\u00e3o. Default: Nome do atributo.\n\n\nRegistrando entidades\n\n\n#TODO\n\n\nCapturando atualiza\u00e7\u00f5es\n\n\n#TODO\n\n\nDownload\n\n\nDownload via Gradle:\n\n\ncompile 'br.com.roove.synclite:android:0.0.1'\n\n\n\n\nAndroid SyncLite requer no m\u00ednimo Android 2.3.", 
+            "title": "SyncLite"
+        }, 
+        {
+            "location": "/#android-synclite", 
+            "text": "Android SyncLite \u00e9 uma biblioteca para facilitar a sincroniza\u00e7\u00e3o de dados utilizando um protocolo especificado a seguir para envio e recebimento dos dados.", 
+            "title": "Android SyncLite"
+        }, 
+        {
+            "location": "/#definindo-entidades", 
+            "text": "Para que uma entidade possa ser sincronizavel se faz necess\u00e1rio que seja criado uma subclasse de BaseModelSync como no exemplo a seguir:  import br.com.roove.synclite.models.BaseModelSync;\nimport br.com.roove.synclite.annotation.SyncLiteField;\n\npublic class Book extends BaseModelSync {\n\n  @SyncLiteField(columnName= _id )\n  Long id;\n\n  @SyncLiteField(serializerName= creator )\n  String author;\n\n  @SyncLiteField()\n  String title;\n\n  @SyncLiteField()\n  String ibsn;\n\n  // getter's e setter's\n\n}  Apenas os atributos com a anota\u00e7\u00e3o @SyncLiteField ser\u00e3o consideradas para a sincroniza\u00e7\u00e3o e persist\u00eancia.  O Atributo  columnName  da anota\u00e7\u00e3o deve ser usado para alterar o valor que ser\u00e1 gravado no storage local. Default: Nome do atributo.  O Atributo  serializerName  da anota\u00e7\u00e3o deve ser usado para alterar o valor que ser\u00e1 considerado nos servi\u00e7os de sincroniza\u00e7\u00e3o. Default: Nome do atributo.", 
+            "title": "Definindo entidades"
+        }, 
+        {
+            "location": "/#registrando-entidades", 
+            "text": "#TODO", 
+            "title": "Registrando entidades"
+        }, 
+        {
+            "location": "/#capturando-atualizacoes", 
+            "text": "#TODO", 
+            "title": "Capturando atualiza\u00e7\u00f5es"
+        }, 
+        {
+            "location": "/#download", 
+            "text": "Download via Gradle:  compile 'br.com.roove.synclite:android:0.0.1'  Android SyncLite requer no m\u00ednimo Android 2.3.", 
+            "title": "Download"
+        }, 
+        {
+            "location": "/api/", 
+            "text": "Nesta p\u00e1gina ser\u00e1 a estrutura necess\u00e1ria dos servi\u00e7os para que a sincroniza\u00e7\u00e3o funcione corretamente.\n\n\nAndroid-to-Server (Push)\n\n\n#TODO\n\n\nServer-to-Android (Pull)\n\n\n#TODO", 
+            "title": "API"
+        }, 
+        {
+            "location": "/api/#android-to-server-push", 
+            "text": "#TODO", 
+            "title": "Android-to-Server (Push)"
+        }, 
+        {
+            "location": "/api/#server-to-android-pull", 
+            "text": "#TODO", 
+            "title": "Server-to-Android (Pull)"
+        }, 
+        {
+            "location": "/about/", 
+            "text": "Licen\u00e7a\n\n\nCopyright 2013 Square, Inc.\n\nLicensed under the Apache License, Version 2.0 (the \nLicense\n);\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \nAS IS\n BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.", 
+            "title": "Sobre"
+        }, 
+        {
+            "location": "/about/#licenca", 
+            "text": "Copyright 2013 Square, Inc.\n\nLicensed under the Apache License, Version 2.0 (the  License );\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n   http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an  AS IS  BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.", 
+            "title": "Licen\u00e7a"
+        }
+    ]
+}
