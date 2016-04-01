@@ -4,7 +4,15 @@
     
     <url>
      <loc>None/</loc>
-     <lastmod>2016-03-31</lastmod>
+     <lastmod>2016-04-01</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>None/synchronizer/</loc>
+     <lastmod>2016-04-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,7 +20,7 @@
     
     <url>
      <loc>None/api/</loc>
-     <lastmod>2016-03-31</lastmod>
+     <lastmod>2016-04-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -20,7 +28,7 @@
     
     <url>
      <loc>None/about/</loc>
-     <lastmod>2016-03-31</lastmod>
+     <lastmod>2016-04-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
