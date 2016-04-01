@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Sincronizador - Android SyncLite</title>
+  
+
+  <link rel="shortcut icon" href="../img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Sincronizador";
+    var mkdocs_page_input_path = "synchronizer.md";
+    var mkdocs_page_url = "/synchronizer/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script>
+  <script src="../js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Android SyncLite</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="..">SyncLite</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href="./">Sincronizador</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#urls">URL's</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#parametros-dinamicos-nas-urls">Parâmetros dinâmicos nas urls</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#headers-dinamicos-nas-requisicoes">Headers dinâmicos nas requisições</a></li>
+                
+            
+                <li class="toctree-l3"><a href="#capturando-atualizacoes">Capturando atualizações</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../api/">API</a>
+        
+    </li>
+<li>
+          
+            <li>
+    <li class="toctree-l1 ">
+        <a class="" href="../about/">Sobre</a>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Android SyncLite</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Sincronizador</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p>Segue a definição e as possibilidades de customizações do sincronizador.</p>
+<h2 id="urls">URL's</h2>
+<p>É necessário informar ao sincronizador as urls de pull e de push dos dados.</p>
+<pre><code class="java">Synchronizer synchronizer = Synchronizer.getInstance();
+
+String pullUrl = &quot;https://api.myapp.com/sync/pull&quot;
+String pushUrl = &quot;https://api.myapp.com/sync/push&quot;
+
+synchronizer.setPullUrl(pullUrl);
+synchronizer.setPushUrl(pushUrl);
+</code></pre>
+
+<p>As urls devem ser informadas antes de iniciar o sincronizador. </p>
+<h2 id="parametros-dinamicos-nas-urls">Parâmetros dinâmicos nas urls</h2>
+<p>Caso a aplicação necessite informar parâmetros nas urls de pull, ou push, pode ser informado um bloco que será executado sempre que a url for montada para uso.</p>
+<pre><code class="java">Synchronizer synchronizer = Synchronizer.getInstance();
+
+PullParameters pullParameters = new PullParameters() {
+  @Override
+  public Map&lt;String, Object&gt; getParameters() {
+    Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();
+    params.put(&quot;param&quot;, &quot;value&quot;);
+    return params;
+  }
+};
+
+PushParameters pushParameters = new PushParameters() {
+  @Override
+  public Map&lt;String, Object&gt; getParameters() {
+    Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();
+    params.put(&quot;param&quot;, &quot;value&quot;);
+    return params;
+  }
+};
+
+synchronizer.setPullParameters(pullParameters);
+synchronizer.setPushParameters(pushParameters);
+</code></pre>
+
+<p>Assim como as urls essas implementações devem ser informadas antes de iniciar o sincronizador.</p>
+<h2 id="headers-dinamicos-nas-requisicoes">Headers dinâmicos nas requisições</h2>
+<p>Caso a aplicação necessite informar headers nas requisições de pull, ou push, pode ser informado um bloco que será executado sempre que a requisição for ser executada.</p>
+<pre><code class="java">Synchronizer synchronizer = Synchronizer.getInstance();
+
+RequestHeaders requestHeaders = new RequestHeaders() {
+  @Override
+  public Map&lt;String, Object&gt; getHeaders() {
+    Map&lt;String, Object&gt; headers = new HashMap&lt;&gt;();
+    String headers = &quot;mock_token&quot;;
+    headers.put(&quot;Authorization&quot;, &quot;Bearer &quot; + token);
+    headers.put(&quot;X-Custom-Header&quot;, &quot;monkey&quot;);
+    return headers;
+  }
+};
+
+synchronizer.setRequestHeaders(requestHeaders);
+</code></pre>
+
+<p>Assim como as urls essas implementações devem ser informadas antes de iniciar o sincronizador.</p>
+<h2 id="capturando-atualizacoes">Capturando atualizações</h2>
+<p>É possível monitorar o processo de atualização em dois níveis, sendo: Todos os registros e Resgistros de uma classe específica.</p>
+<pre><code class="java">package br.com.myapp;
+
+import android.util.Log;
+
+import br.com.roove.synclite.observers.SyncObserver;
+import br.com.roove.synclite.sync.Synchronizer;
+import br.com.myapp.models.Book;
+
+class MyApplication extends android.app.Application {
+
+    private static final String TAG = MyApplication.class.getCanonicalName();
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        Synchronizer synchronizer = Synchronizer.getInstance();
+        synchronizer.registerModel(Book.class);
+
+        synchronizer.registerObserverSync(new SyncObserver() {
+            @Override
+            public void onFinishSync() {
+              Log.d(TAG, &quot;Finish sync&quot;);
+            }
+        });
+
+        synchronizer.registerObserverModelSync(Book.class, new SyncObserver() {
+            @Override
+            public void onFinishSync() {
+              Log.d(TAG, &quot;Finish sync for book&quot;);
+            }
+        });
+
+        synchronizer.start();
+    }
+
+}
+</code></pre>
+
+<p>Os observadores podem ser adicionados a qualquer momento para o sincronizador, mesmo depois que já foi iniciada a sincronização.</p>
+<p>Métodos disponíveis do SyncObserver:</p>
+<pre><code class="java">public void onFinishSync();
+public void onFinishSync(int totalRecords);
+public void onFinishSync(JSONObject response);
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../api/" class="btn btn-neutral float-right" title="API">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="SyncLite"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../api/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+
+</body>
+</html>
