@@ -126,7 +126,9 @@
 <p>Android SyncLite é uma biblioteca para facilitar a sincronização de dados utilizando um protocolo especificado a seguir para envio e recebimento dos dados.</p>
 <h2 id="definindo-entidades">Definindo entidades</h2>
 <p>Para que uma entidade possa ser sincronizavel se faz necessário que seja criado uma subclasse de BaseModelSync como no exemplo a seguir:</p>
-<pre><code class="java">import br.com.roove.synclite.models.BaseModelSync;
+<pre><code class="java">package br.com.myapp.models;
+
+import br.com.roove.synclite.models.BaseModelSync;
 import br.com.roove.synclite.annotation.SyncLiteField;
 
 public class Book extends BaseModelSync {
@@ -141,7 +143,7 @@ public class Book extends BaseModelSync {
   String title;
 
   @SyncLiteField()
-  String ibsn;
+  String isbn;
 
   // getter's e setter's
 
@@ -152,9 +154,75 @@ public class Book extends BaseModelSync {
 <p>O Atributo <em>columnName</em> da anotação deve ser usado para alterar o valor que será gravado no storage local. Default: Nome do atributo.</p>
 <p>O Atributo <em>serializerName</em> da anotação deve ser usado para alterar o valor que será considerado nos serviços de sincronização. Default: Nome do atributo.</p>
 <h2 id="registrando-entidades">Registrando entidades</h2>
-<p>#TODO</p>
+<p>Depois de definida uma entidade é necessário registrá-la para ela de fato venha a ser enviada e recebida nas requições de atualizações.</p>
+<pre><code class="java">package br.com.myapp;
+
+import br.com.roove.synclite.sync.Synchronization;
+import br.com.myapp.models.Book;
+
+class MyApplication extends android.app.Application {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        Synchronization synchronization = Synchronization.getInstance();
+
+        synchronization.registerModel(Book.class);
+
+        // Ou para registrar com um nome específico no serializer.
+        String serializerBookName = &quot;books&quot;;
+        synchronization.registerModel(Book.class, serializerBookName);
+
+        synchronization.start();
+    }
+
+}
+</code></pre>
+
+<p>Os modelos podem ser adicionados a qualquer momento para o sincronizador, mesmo depois que já foi iniciada a sincronização.</p>
 <h2 id="capturando-atualizacoes">Capturando atualizações</h2>
-<p>#TODO</p>
+<p>É possível monitorar o processo de atualização em dois níveis, sendo: Todos os registros e Resgistros de uma classe específica.</p>
+<pre><code class="java">package br.com.myapp;
+
+import android.util.Log;
+
+import br.com.roove.synclite.observers.SyncObserver;
+import br.com.roove.synclite.sync.Synchronization;
+import br.com.myapp.models.Book;
+
+class MyApplication extends android.app.Application {
+
+    private static final String TAG = MyApplication.class.getCanonicalName();
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        Synchronization synchronization = Synchronization.getInstance();
+        synchronization.registerModel(Book.class);
+
+        synchronization.registerObserverSync(new SyncObserver() {
+            @Override
+            public void onFinishSync(int totalRecords) {
+              Log.d(TAG, &quot;Finish sync&quot;);
+            }
+        });
+
+        synchronization.registerObserverModelSync(Book.class, new SyncObserver() {
+            @Override
+            public void onFinishSync(int totalRecords) {
+              Log.d(TAG, &quot;Finish sync for book&quot;);
+            }
+        });
+
+        synchronization.start();
+    }
+
+}
+</code></pre>
+
+<p>Os modelos podem ser adicionados a qualquer momento para o sincronizador, mesmo depois que já foi iniciada a sincronização.</p>
 <h2 id="download">Download</h2>
 <p>Download via Gradle:</p>
 <pre><code class="groovy">compile 'br.com.roove.synclite:android:0.0.1'
@@ -206,5 +274,5 @@ public class Book extends BaseModelSync {
 
 <!--
 MkDocs version : 0.15.3
-Build Date UTC : 2016-03-31 23:10:45.789080
+Build Date UTC : 2016-04-01 01:27:38.671715
 -->
