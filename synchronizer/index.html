@@ -142,10 +142,53 @@ synchronizer.setPullUrl(pullUrl);
 synchronizer.setPushUrl(pushUrl);
 </code></pre>
 
+<p>As urls devem ser informadas antes de iniciar o sincronizador. </p>
 <h2 id="parametros-dinamicos-nas-urls">Parâmetros dinâmicos nas urls</h2>
-<p>#TODO</p>
+<p>Caso a aplicação necessite informar parâmetros nas urls de pull, ou push, pode ser informado um bloco que será executado sempre que a url for montada para uso.</p>
+<pre><code class="java">Synchronizer synchronizer = Synchronizer.getInstance();
+
+PullParameters pullParameters = new PullParameters() {
+  @Override
+  public Map&lt;String, Object&gt; getParameters() {
+    Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();
+    params.put(&quot;param&quot;, &quot;value&quot;);
+    return params;
+  }
+};
+
+PushParameters pushParameters = new PushParameters() {
+  @Override
+  public Map&lt;String, Object&gt; getParameters() {
+    Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();
+    params.put(&quot;param&quot;, &quot;value&quot;);
+    return params;
+  }
+};
+
+synchronizer.setPullParameters(pullParameters);
+synchronizer.setPushParameters(pushParameters);
+</code></pre>
+
+<p>Assim como as urls essas implementações devem ser informadas antes de iniciar o sincronizador.</p>
 <h2 id="headers-dinamicos-nas-requisicoes">Headers dinâmicos nas requisições</h2>
-<p>#TODO</p>
+<p>Caso a aplicação necessite informar headers nas requisições de pull, ou push, pode ser informado um bloco que será executado sempre que a requisição for ser executada.</p>
+<pre><code class="java">Synchronizer synchronizer = Synchronizer.getInstance();
+
+RequestHeaders requestHeaders = new RequestHeaders() {
+  @Override
+  public Map&lt;String, Object&gt; getHeaders() {
+    Map&lt;String, Object&gt; headers = new HashMap&lt;&gt;();
+    String headers = &quot;mock_token&quot;;
+    headers.put(&quot;Authorization&quot;, &quot;Bearer &quot; + token);
+    headers.put(&quot;X-Custom-Header&quot;, &quot;monkey&quot;);
+    return headers;
+  }
+};
+
+synchronizer.setRequestHeaders(requestHeaders);
+</code></pre>
+
+<p>Assim como as urls essas implementações devem ser informadas antes de iniciar o sincronizador.</p>
 <h2 id="capturando-atualizacoes">Capturando atualizações</h2>
 <p>É possível monitorar o processo de atualização em dois níveis, sendo: Todos os registros e Resgistros de uma classe específica.</p>
 <pre><code class="java">package br.com.myapp;
